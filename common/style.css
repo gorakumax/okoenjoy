@@ -1,0 +1,224 @@
+/* --- 全体設定 --- */
+body {
+    background-color: #F7F6F2;
+    /* margin: 0; padding: 10px; 必要に応じて解除 */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- 見出し（h1） --- */
+h1 {
+    text-align: center;
+    color: #333;
+    text-shadow: 0 -2px 0 #999;
+    /* 枠線の設定 */
+    border-width: 0 0 3px 3px;
+    border-style: none none ridge ridge;
+    border-color: #6e88dc;
+}
+.signe {
+    text-align: center;
+    font-size: 10px;
+}
+/* 先ほど追加したサブタイトル用 */
+.sub-title {
+    display: block;
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
+/* --- 共通の基本設定 --- */
+.nav-list {
+    list-style: none; /* 文頭の「・」を消す */
+    padding: 0;
+    margin: 5px 0;
+}
+
+
+.nav-list a {
+    text-decoration: none;
+    color: #1284ff; /* リンクの色（青系） */
+    display: block; /* クリック範囲を広げる */
+}
+
+/* --- フッター用の設定（横並び） --- */
+footer .nav-list {
+    display: flex;           /* 横並びにする魔法の言葉 */
+    flex-wrap: wrap;         /* 自動で折り返す（Android対策） */
+    justify-content: center; /* 中央寄せにする */
+    gap: 20px;               /* 項目同士の間隔 */
+}
+footer .nav-list li {
+    font-size: 12px;
+}
+/* --- サイドナビ用の設定（縦並び・スマホ向け） --- */
+#side-nav .nav-list {
+    display: block;          /* 縦に積む */
+    padding: 0px;           /*ナビ全体の余白 */
+    flex-grow: 1;            /* 余ったスペースを埋める（これで下の要素を押し下げる） */
+}
+
+#side-nav .nav-list li {
+ margin-bottom: 0px;        /* 項目ごとの縦の間隔 */
+   /*  border-bottom: 1px solid #eee; 下線を入れると見やすい */
+    /* padding-bottom: 10px; */
+}
+
+#side-nav .nav-list li a {
+    color: #333;             /* サイドナビ内は落ち着いた色にする場合 */
+    font-weight: bold;
+}
+/* --- 追従メニュー用の追加CSS --- */
+/* --- 右上配置用：追従メニュー --- */
+
+/* ボタンを右上に固定 */
+#menu-trigger {
+    position: fixed;
+    top: 20px;
+    right: 20px; /* leftからrightに変更 */
+    width: 50px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* メニュー本体を右側に隠す */
+#side-nav {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    
+    /* --- ここが重要 --- */
+    height: 100vh;           /* 高さを画面ぴったりに固定 */
+    box-sizing: border-box;  /* paddingを高さに含める設定 */
+    padding-top: 70px;       /* 上の余白 */
+    padding-bottom: 20px;    /* 下が切れないように少し余白を追加 */
+    /* ------------------ */
+
+    background: #fff;
+    z-index: 10000;
+    transition: 0.3s;
+    overflow-y: auto;        /* はみ出た分をスクロール */
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+}
+/* JSで開いた時に右端にぴったり合わせる */
+#side-nav.open {
+    right: 0;
+}
+
+/* --- 以下は共通スタイル --- */
+
+#menu-trigger span:nth-child(1),
+#menu-trigger span:nth-child(3) {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #8b572a;
+    border-radius: 2px;
+}
+
+.menu-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: #8b572a;
+    line-height: 1;
+}
+
+#nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+#nav-overlay.open {
+    display: block;
+}
+
+#side-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#side-nav ul li a {
+    display: block;
+    padding: 20px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+}
+
+/* --- ボタンコンポーネント (Onsen UIベース) --- */
+.button--large {
+    /* 配置と形状 */
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 0 20px;
+    margin: 0;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer;
+    overflow: hidden;
+    
+    /* 背景と枠線 */
+    background-color: #1284ff;
+    border: none;
+    border-radius: 4px;
+    background-clip: padding-box;
+    
+    /* 文字装飾 */
+    color: #fff;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 36px;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+
+    /* アニメーション */
+    transition: background-color 0.2s linear, color 0.2s linear, opacity 0.2s linear;
+    
+    /* ユーザー操作無効化 */
+    user-select: none;
+}
+
+/* ボタンの状態（ホバー・アクティブ・無効化） */
+.button--large:active {
+    opacity: 0.6;
+    transition: none;
+}
+
+.button--large:hover,
+.button--large:focus {
+    outline: 0;
+    transition: none;
+}
+
+.button--large:disabled {
+    opacity: 0.3;
+    cursor: pointer;
+    pointer-events: none;
+}
+.button--large:last-of-type {
+    background-color: #ff12a4; /* お好みの赤色に調整してください */
+}
